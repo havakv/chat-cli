@@ -57,6 +57,7 @@ pexpect==4.9.0
 pip==24.2
     # via shiv
 prompt-toolkit==3.0.47
+    # via chat-cli
     # via ipython
 ptyprocess==0.7.0
     # via pexpect

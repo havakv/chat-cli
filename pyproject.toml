@@ -6,6 +6,7 @@ dependencies = [
     "openai>=1.40.6",
     "ipython>=8.26.0",
     "devtools>=0.12.2",
+    "prompt-toolkit>=3.0.47",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

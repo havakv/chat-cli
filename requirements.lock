@@ -53,6 +53,7 @@ parso==0.8.4
 pexpect==4.9.0
     # via ipython
 prompt-toolkit==3.0.47
+    # via chat-cli
     # via ipython
 ptyprocess==0.7.0
     # via pexpect

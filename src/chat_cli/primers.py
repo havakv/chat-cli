@@ -7,6 +7,8 @@ more. The primary use of the synonyms will be for naming in programming, so when
 possible use commons namings. An example is append in python is the same as push in
 rust. Common abbreviations are also fine: like message and msg.
 
+Note: All lists should start with a newline.
+
 # EXAMPLE 1:
 
 <USER>
@@ -14,6 +16,7 @@ append
 </USER>
 
 <ASSISTANT>
+
  • add
  • attach
  • push
@@ -31,6 +34,7 @@ more
 </USER>
 
 <ASSISTANT>
+
  • annex
  • connect
  • afford
@@ -48,6 +52,7 @@ add
 </USER>
 
 <ASSISTANT>
+
  • Include
  • Append
  • Combine
