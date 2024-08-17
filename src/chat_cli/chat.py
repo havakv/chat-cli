@@ -141,6 +141,11 @@ def print_content(content: str) -> None:
         print(f"{grey}{c}{end_code}", flush=True, end="")
 
 
+# TODO:
+#  - limit history used in queries
+#  - cli directly: c: tell a joke
+#  - prompt for short concise answers
+#  - chat shell
 def _process(content: str, tracker: Tracker) -> bool:
     match content:
         case "q" | "exit":
