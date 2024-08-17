@@ -146,6 +146,10 @@ def print_content(content: str) -> None:
 #  - cli directly: c: tell a joke
 #  - prompt for short concise answers
 #  - chat shell
+#  - copy last answer
+#  - vim integration:
+#       - copy answer to vim
+#       - write question in vim
 def _process(content: str, tracker: Tracker) -> bool:
     match content:
         case "q" | "exit":
