@@ -150,6 +150,9 @@ def print_content(content: str) -> None:
 #  - vim integration:
 #       - copy answer to vim
 #       - write question in vim
+#  - set temperature
+#  - set seed
+#  - set max token length
 def _process(content: str, tracker: Tracker) -> bool:
     match content:
         case "q" | "exit":
