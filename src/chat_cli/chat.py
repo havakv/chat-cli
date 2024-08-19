@@ -1,9 +1,12 @@
+from __future__ import annotations
+
 import argparse
 import enum
 import os
 from dataclasses import dataclass
 from typing import Generator, Literal
 
+import tiktoken
 from openai import OpenAI
 from openai.types.chat.chat_completion_message_param import ChatCompletionMessageParam
 from typing_extensions import deprecated
@@ -11,7 +14,10 @@ from typing_extensions import deprecated
 from chat_cli import primers
 from chat_cli.multiline_prompt import multiline_prompt
 
+BLUE = "\033[34m"
 RED = "\033[31m"
+GREEN = "\033[32m"
+GREY = "\033[38;5;249m"  # 250 is same as my terminal and 248 is a bit darker
 END_CODE = "\033[0m"  # Resets the color
 
 
@@ -41,6 +47,11 @@ class Model(enum.Enum):
     def model_names() -> list[str]:
         return [x.value for x in Model]
 
+    def num_tokens(self, text: str) -> int:
+        """Return the number of tokens in a string."""
+        encoding = tiktoken.encoding_for_model(self.value)
+        return len(encoding.encode(text))
+
 
 class Tracker:
     _client: OpenAI
@@ -55,7 +66,10 @@ class Tracker:
         self._primer = None
 
     def prime(self, content: str) -> None:
-        self._primer = Msg("system", content)
+        if content:
+            self._primer = Msg("system", content)
+        else:
+            self._primer = None
 
     def clear(self) -> None:
         self.messages = []
@@ -121,24 +135,18 @@ class Tracker:
 
 
 def input_colored(prompt: str) -> str:
-    end_code = "\033[0m"  # Resets the color
-    # blue_color = "\033[34m"
-    green_color = "\033[32m"
-    colored_prompt = f"{green_color}{prompt}{end_code}"
+    colored_prompt = f"{GREEN}{prompt}{END_CODE}"
     return input(colored_prompt)
 
 
 def print_grey(text: str) -> None:
-    end_code = "\033[0m"  # Resets the color
-    grey = "\033[38;5;249m"  # 250 is same as my terminal and 248 is a bit darker
-    print(f"{grey}{text}{end_code}")
+    print(f"{GREY}{text}{END_CODE}")
 
 
 def print_content(content: str) -> None:
-    end_code = "\033[0m"  # Resets the color
-    grey = "\033[38;5;249m"  # 250 is same as my terminal and 248 is a bit darker
     for c in content:
-        print(f"{grey}{c}{end_code}", flush=True, end="")
+        # print(f"{GREY}{c}{END_CODE}", flush=True, end="")
+        print(c, flush=True, end="")
 
 
 # TODO:
@@ -168,8 +176,10 @@ def _process(content: str, tracker: Tracker) -> bool:
 
         case "debug":
             print(tracker.model)
+            print(tracker._primer)  # type: ignore
             for msg in tracker.messages:
                 print()
+                print(f"tokens: {tracker.model.num_tokens(msg.content)}")
                 print(msg)
 
         case x if x in {"m", "wm"} or x.split()[0] in {"m", "wm"}:
@@ -190,6 +200,7 @@ def _process(content: str, tracker: Tracker) -> bool:
                 if tracker.messages[-1].role == "assistant":
                     tracker.messages.pop()
 
+                # TODO: make this the same as the case _:
                 print(flush=True)
                 print(f"{RED}{tracker.model.value} > {END_CODE}", end="", flush=True)
                 for response in tracker.stream_chat(None):
@@ -212,12 +223,15 @@ def _process(content: str, tracker: Tracker) -> bool:
 def chat(args: argparse.Namespace) -> None:
     # TODO: https://cookbook.openai.com/
     tracker = Tracker(Model(args.model))
+    tracker.prime(primers.CHAT)
     while True:
         content = input_colored("\nchat > ")
         if _process(content, tracker):
             break
 
 
+# TODO: could use structured outputs https://cookbook.openai.com/examples/structured_outputs_intro
+#       probably wouldn't work with streaming, but could still be useful.
 def synonyms(args: argparse.Namespace) -> None:
     tracker = Tracker(Model(args.model))
     tracker.prime(primers.SYNONYMS)
