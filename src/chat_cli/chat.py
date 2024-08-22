@@ -222,8 +222,17 @@ def _process(content: str, tracker: Tracker) -> bool:
         case "yy" | "yank":
             if last := tracker.last():
                 content = last.content.strip()
-                if content.startswith("```") and content.endswith("```"):
-                    content = "\n".join(content.splitlines()[1:-1])
+                pyperclip.copy(content)
+            else:
+                print("not messages to copy")
+
+        case "yc":
+            if last := tracker.last():
+                code_blocks = _extract_code_blocks(last.content)
+                if len(code_blocks) != 1:
+                    print(f"found {len(code_blocks)=}, can't execute")
+
+                _shell, content = code_blocks[0]
                 pyperclip.copy(content)
             else:
                 print("not messages to copy")
