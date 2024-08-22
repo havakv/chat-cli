@@ -8,6 +8,9 @@ dependencies = [
     "devtools>=0.12.2",
     "prompt-toolkit>=3.0.47",
     "tiktoken>=0.7.0",
+    "pyperclip>=1.9.0",
+    "pynput>=1.7.7",
+    "ruff>=0.6.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -32,5 +35,4 @@ packages = ["src/chat_cli"]
 [project.scripts]
 main = "chat_cli.chat:main"
 mini-chat = "chat_cli.chat:mini_chat"
-mini-chat-no = "chat_cli.chat:mini_chat_no"
 synonyms = "chat_cli.chat:mini_synonyms"

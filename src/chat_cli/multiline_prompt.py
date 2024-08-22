@@ -18,13 +18,3 @@ def accept_multiline_input(event: KeyPressEvent) -> None:
 def multiline_prompt(prompt: str) -> str:
     session: PromptSession[str] = PromptSession(multiline=True, key_bindings=bindings)
     return session.prompt(prompt)
-
-
-# def main():
-#     print("Enter your input (Press Ctrl-Enter to submit):")
-#     try:
-#         while True:
-#             user_input = session.prompt("> ")
-#             print(f"You entered:\n{user_input}")
-#     except (KeyboardInterrupt, EOFError):
-#         print("Exiting...")

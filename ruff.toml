@@ -1,3 +1,56 @@
 [lint]
-select = ["A", "B", "E", "F","I", "ICN", "NPY"]
-ignore = ["E501"]
+select = [
+  "A",
+  "ANN",
+  "ARG",
+  "B",
+  "BLE",
+  "C4",
+  "DTZ",
+  "E",
+  "ERA",
+  "EXE",
+  "F",
+  "FIX002",
+  "FURB",
+  "I",
+  "ICN",
+  "ISC",
+  "LOG",
+  "N",
+  "NPY",
+  "PERF",
+  "PIE",
+  "PLC",
+  "PLE",
+  "PLR",
+  "PLW",
+  "PT",
+  "PTH",
+  "PYI",
+  "Q",
+  "RET",
+  "RUF",
+  "SIM",
+  "TCH010",
+  "TID",
+  "TRY",
+  "UP",
+  "W",
+  "YTT",
+]
+
+ignore = [
+  "ANN101", # deprecated
+  "ANN102", # deprecated
+  "ANN401",
+  "E501",
+  "PT018",
+  "PLR0912",
+  "PLR0913",
+  "PLR0915",
+  "PLR2004",
+  "PYI041",
+  "TRY002",
+  "TRY003",
+]
