@@ -54,6 +54,8 @@ jiter==0.5.0
     # via openai
 matplotlib-inline==0.1.7
     # via ipython
+nodeenv==1.9.1
+    # via pyright
 openai==1.40.6
     # via chat-cli
 parso==0.8.4
@@ -80,6 +82,7 @@ pynput==1.7.7
     # via chat-cli
 pyperclip==1.9.0
     # via chat-cli
+pyright==1.1.377
 python-xlib==0.33
     # via pynput
 regex==2024.7.24

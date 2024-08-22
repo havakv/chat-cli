@@ -253,7 +253,7 @@ def _process(content: str, tracker: Tracker) -> bool:
                     text=True,
                     capture_output=True,
                     shell=True,
-                    check=True,
+                    check=False,
                 )
 
                 print(f"\n{BLUE}system > {END_CODE}", flush=True)
@@ -265,7 +265,7 @@ def _process(content: str, tracker: Tracker) -> bool:
             code = x.removeprefix("x ")
             assert "sudo" not in code
             result = subprocess.run(
-                code, text=True, capture_output=True, shell=True, check=True
+                code, text=True, capture_output=True, shell=True, check=False
             )
 
             print(f"\n{BLUE}system > {END_CODE}", flush=True)
