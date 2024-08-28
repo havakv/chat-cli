@@ -8,7 +8,7 @@ import subprocess
 from dataclasses import dataclass
 from typing import Generator, Literal
 
-import pyperclip
+import pyperclip  # type: ignore
 import tiktoken
 from openai import OpenAI
 from openai.types.chat.chat_completion_message_param import ChatCompletionMessageParam
