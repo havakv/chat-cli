@@ -212,6 +212,9 @@ def _extract_code_blocks(content: str) -> list[tuple[str, str]]:
 #  - set max token length
 def _process(content: str, tracker: Tracker) -> bool:
     match content:
+        case "":
+            return False
+
         case "q" | "exit":
             return True
 
