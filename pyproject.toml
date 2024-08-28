@@ -7,6 +7,7 @@ dependencies = [
     "prompt-toolkit>=3.0.47",
     "tiktoken>=0.7.0",
     "pyperclip>=1.9.0",
+    "shiv>=1.0.6", # needed to cleanup
 ]
 readme = "README.md"
 requires-python = ">= 3.11"
@@ -27,7 +28,6 @@ dev-dependencies = [
     "ipython>=8.26.0",
     "pyright>=1.1.377",
     "ruff>=0.6.1",
-    "shiv>=1.0.6",
 ]
 
 [project.scripts]

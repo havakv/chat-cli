@@ -10,6 +10,6 @@ target_dir=target/release
 mkdir -p "$target_dir"
 
 # build the executable zipp app
-rye run shiv . -p "/usr/bin/env python$version" -c main -o "$target_dir/chat-cli"
+uv run shiv . -p "/usr/bin/env python$version" -c main -o "$target_dir/chat-cli" --preamble cleanup_shiv.py --root /tmp/shiv-cache
 
 
