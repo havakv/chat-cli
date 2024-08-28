@@ -211,6 +211,7 @@ def _extract_code_blocks(content: str) -> list[tuple[str, str]]:
 #  - set seed
 #  - set max token length
 def _process(content: str, tracker: Tracker) -> bool:
+    content = content.strip()
     match content:
         case "":
             return False
