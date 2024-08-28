@@ -353,7 +353,7 @@ def synonyms(args: argparse.Namespace) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="ChatGPT tools")
     parser.add_argument(
-        "--model", type=str, default="gpt-4o-mini", choices=Model.model_names()
+        "--model", type=str, default="gpt-4o-2024-08-06", choices=Model.model_names()
     )
 
     subparsers = parser.add_subparsers(title="subcommands", dest="command")
