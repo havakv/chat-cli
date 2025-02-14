@@ -44,8 +44,7 @@ class Msg:
 # https://openai.com/api/pricing/
 class Model(enum.Enum):
     Mini = "gpt-4o-mini"
-    Gpt4o = "gpt-4o"
-    Large = "gpt-4o-2024-08-06"
+    Gpt4o = "gpt-4o-2024-11-20"
     O3Mini = "o3-mini-2025-01-31"
     O1 = "o1-2024-12-17"
     O1mini = "o1-mini-2024-09-12"
@@ -365,7 +364,7 @@ def synonyms(args: argparse.Namespace) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="ChatGPT tools")
     parser.add_argument(
-        "--model", type=str, default="gpt-4o-2024-08-06", help=str(Model.model_names())
+        "--model", type=str, default=Model.Gpt4o.value, help=str(Model.model_names())
     )
 
     subparsers = parser.add_subparsers(title="subcommands", dest="command")
