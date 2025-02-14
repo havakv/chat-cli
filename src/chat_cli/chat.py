@@ -329,7 +329,8 @@ def _process(content: str, tracker: Tracker) -> bool:
 
 def chat(args: argparse.Namespace) -> None:
     # FIXME: https://cookbook.openai.com/
-    tracker = Tracker(Model(args.model))
+    model = Model.try_from_str(args.model)
+    tracker = Tracker(model)
     tracker.prime(primers.CHAT)
     while True:
         try:
@@ -344,7 +345,8 @@ def chat(args: argparse.Namespace) -> None:
 # FIXME: could use structured outputs https://cookbook.openai.com/examples/structured_outputs_intro
 #       probably wouldn't work with streaming, but could still be useful.
 def synonyms(args: argparse.Namespace) -> None:
-    tracker = Tracker(Model(args.model))
+    model = Model.try_from_str(args.model)
+    tracker = Tracker(model)
     tracker.prime(primers.SYNONYMS)
     while not _process(input_colored("\nsynonyms > "), tracker):
         pass
@@ -353,7 +355,7 @@ def synonyms(args: argparse.Namespace) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="ChatGPT tools")
     parser.add_argument(
-        "--model", type=str, default="gpt-4o-2024-08-06", choices=Model.model_names()
+        "--model", type=str, default="gpt-4o-2024-08-06", help=str(Model.model_names())
     )
 
     subparsers = parser.add_subparsers(title="subcommands", dest="command")
