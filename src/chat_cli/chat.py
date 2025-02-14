@@ -46,6 +46,9 @@ class Model(enum.Enum):
     Mini = "gpt-4o-mini"
     Gpt4o = "gpt-4o"
     Large = "gpt-4o-2024-08-06"
+    O3Mini = "o3-mini-2025-01-31"
+    O1 = "o1-2024-12-17"
+    O1mini = "o1-mini-2024-09-12"
 
     @classmethod
     def try_from_str(cls, name: str) -> Model | None:
@@ -139,6 +142,13 @@ class Tracker:
         messages.extend(
             m.as_chat_completion_message_param() for m in self.messages_truncated()
         )
+
+        # FIXME: Hack as long as o1mini doesn't support system prompts.
+        if self.model == Model.O1mini:
+            for m in messages:
+                if m["role"] == "system":
+                    m["role"] = "user"
+
         response = self._client.chat.completions.create(
             messages=messages,
             model=self.model.value,
