@@ -43,11 +43,12 @@ class Msg:
 
 # https://openai.com/api/pricing/
 class Model(enum.Enum):
-    Mini = "gpt-4o-mini"
+    Gpt41 = "gpt-4.1"
+    O3 = "o3"
     Gpt4o = "gpt-4o-2024-11-20"
     O3Mini = "o3-mini-2025-01-31"
-    O1 = "o1-2024-12-17"
-    O1mini = "o1-mini-2024-09-12"
+    # O1 = "o1-2024-12-17" # too expensive
+    # O1mini = "o1-mini-2024-09-12"
 
     @classmethod
     def try_from_str(cls, name: str) -> Model | None:
@@ -141,12 +142,6 @@ class Tracker:
         messages.extend(
             m.as_chat_completion_message_param() for m in self.messages_truncated()
         )
-
-        # FIXME: Hack as long as o1mini doesn't support system prompts.
-        if self.model == Model.O1mini:
-            for m in messages:
-                if m["role"] == "system":
-                    m["role"] = "user"
 
         response = self._client.chat.completions.create(
             messages=messages,
@@ -364,7 +359,7 @@ def synonyms(args: argparse.Namespace) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="ChatGPT tools")
     parser.add_argument(
-        "--model", type=str, default=Model.Gpt4o.value, help=str(Model.model_names())
+        "--model", type=str, default=Model.Gpt41.value, help=str(Model.model_names())
     )
 
     subparsers = parser.add_subparsers(title="subcommands", dest="command")
